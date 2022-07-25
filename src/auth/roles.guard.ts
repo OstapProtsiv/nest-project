@@ -22,24 +22,18 @@ export class RolesGuard implements CanActivate {
       if (!requiredRole) {
         return true;
       }
-      console.log(requiredRole);
-
       const request = context.switchToHttp().getRequest();
       const token = request.headers.authorization.split(' ')[1];
-      console.log(token);
 
       if (!token) {
         throw new ForbiddenException('access is forbidden');
       }
-      console.log(this.jwtService);
       const user = this.jwtService.verify(token);
 
       return user.roles.some((role: { value: string }) =>
         requiredRole.includes(role.value),
       );
     } catch (error) {
-      console.log(error);
-
       throw new ForbiddenException('access is forbidden');
     }
   }

@@ -8,14 +8,12 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import {
-  ApiBadRequestResponse,
   ApiBearerAuth,
-  ApiBody,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { BanUserDto } from '../../dist/users/dto/ban-user.dto';
+import { BanUserDto } from './dto/ban-user.dto';
 import { RolesDec } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 import { User } from '../models/user.model';

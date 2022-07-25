@@ -1,26 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
+import { Posts } from '../entity/post.entity';
 import { FilesService } from '../files/files.service';
-import { Posts } from '../models/post.model';
 import { CreatePostDto } from './dtos/create-post.dto';
-
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from '../entity/user.entity';
 //get user id from token and rework to TYPEORM from sequelize
 
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectModel(Posts) private PostRepository: typeof Posts,
-    private FileService: FilesService,
+    // @InjectRepo(Posts) private PostRepository: Posts,
+    @InjectRepository(Posts) private PostRepository: Repository<Posts>,
+    private FileService: FilesService, // @InjectRepository()
+    @InjectRepository(User) private UserRepository: Repository<User>,
   ) {}
 
-  async createPost(createDto: CreatePostDto, image) {
+  async createPost(createDto: CreatePostDto, image): Promise<Posts> {
     const imageName = await this.FileService.createFile(image);
-    console.log(createDto);
-
-    const post = await this.PostRepository.create({
+    const post = this.PostRepository.create({
       ...createDto,
       image: imageName,
     });
-    return post;
+
+    return this.PostRepository.save(post);
   }
 }

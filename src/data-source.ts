@@ -1,6 +1,5 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { User } from './entity/User';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -11,7 +10,7 @@ export const AppDataSource = new DataSource({
   database: 'nest-project-migrations',
   synchronize: true,
   logging: false,
-  entities: [User],
-  migrations: [],
+  entities: ['**/**/*.entity.js'],
+  migrations: ['**/**/migrations/*.js'],
   subscribers: [],
 });
