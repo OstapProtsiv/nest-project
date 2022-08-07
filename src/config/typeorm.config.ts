@@ -17,8 +17,18 @@ export const typeOrmConfig: TypeOrmModuleAsyncOptions = {
     database: process.env.POSTGRES_DBNAME,
     synchronize: true,
     autoLoadEntities: true,
-    entities: [User, BannedUsers, Roles, Posts],
-    migrations: [__dirname + '/../migration/*{.ts,.js}'],
+    // entities: [User, BannedUsers, Roles, Posts],
+    // entities: [__dirname + '/../entity/*{.ts,.js}'],
+
+    // entities: [__dirname + '/../entity/*.{ts}'],
+    // migrations: [__dirname + '/../migration/*.{ts}'],
+
+    // entities: ['dist/entity/**/*{.ts,.js}'],
+    // migrations: ['dist/migration/**/*{.ts,.js}'],
+
+    entities: ['build/entity/**/*{.ts,.js}'],
+    migrations: ['build/migration/**/*{.ts,.js}'],
+    migrationsTableName: 'migration_table',
   }),
 };
 

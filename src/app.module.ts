@@ -16,6 +16,7 @@ import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './models/user.model';
 import { typeOrmConfig } from './config/typeorm.config';
+import { AppDataSource } from './data-source';
 @Module({
   providers: [],
   controllers: [],
